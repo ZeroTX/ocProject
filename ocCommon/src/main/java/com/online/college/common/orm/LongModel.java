@@ -16,6 +16,6 @@ public class LongModel implements Identifier<Long>,Serializable {
 
     @Override
     public Long getId() {
-        return null;
+        return id;
     }
 }
