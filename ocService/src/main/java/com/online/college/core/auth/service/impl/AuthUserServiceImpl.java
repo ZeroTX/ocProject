@@ -106,7 +106,7 @@ public class AuthUserServiceImpl implements IAuthUserService {
      */
     @Override
     public void delete(AuthUser entity) {
-
+        authUserDao.delete(entity);
     }
 
     /**
@@ -116,6 +116,6 @@ public class AuthUserServiceImpl implements IAuthUserService {
      */
     @Override
     public void deleteLogic(AuthUser entity) {
-
+        authUserDao.deleteLogic(entity);
     }
 }
