@@ -11,6 +11,6 @@ public class App
         System.out.println( "Hello World!" );
     }
     public static String getString(){
-        return "测试方法";
+        return " 测试方法";
     }
 }

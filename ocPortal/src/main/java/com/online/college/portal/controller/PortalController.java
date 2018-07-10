@@ -15,17 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping
 public class PortalController {
-    @Autowired
-    CommonDemo commonDemo;
-    @Autowired
-    OCDemo ocDemo;
 
     @RequestMapping("/index")
     public ModelAndView index(){
-        System.out.println(ocDemo.getString3());
-        System.out.println(commonDemo.getString2());
-        System.out.println(App.getString());
-        System.out.println("进来了");
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("info","网校欢迎你!");
         return mv;

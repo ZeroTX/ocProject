@@ -67,6 +67,9 @@
           <element id="archive" name="ocCommon.jar">
             <element id="module-output" name="ocCommon" />
           </element>
+          <element id="archive" name="ocService.jar">
+            <element id="module-output" name="ocService" />
+          </element>
         </element>
       </element>
     </root>
