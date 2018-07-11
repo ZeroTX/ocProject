@@ -286,6 +286,7 @@
         <module>ocPortal</module>
         <module>ocCommon</module>
         <module>ocService</module>
+        <module>ocRest</module>
     </modules>
 
     <build>

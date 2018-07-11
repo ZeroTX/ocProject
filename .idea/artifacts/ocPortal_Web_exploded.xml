@@ -6,6 +6,7 @@
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="ocPortal" />
+          <element id="module-output" name="ocRest" />
         </element>
         <element id="directory" name="lib">
           <element id="library" level="project" name="Maven: aopalliance:aopalliance:1.0" />
@@ -72,6 +73,7 @@
           </element>
         </element>
       </element>
+      <element id="javaee-facet-resources" facet="ocRest/web/Web" />
     </root>
   </artifact>
 </component>

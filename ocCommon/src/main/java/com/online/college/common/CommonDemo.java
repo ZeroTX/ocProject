@@ -10,6 +10,6 @@ public class CommonDemo {
 
     public String getString2(){
 
-        return "测试注解";
+        return "测试注解 ";
     }
 }
