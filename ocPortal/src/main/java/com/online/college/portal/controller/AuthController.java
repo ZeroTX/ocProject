@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
-    IAuthUserService authUserService;
+    IAuthUserService authUserServiceImpl;
 
     @RequestMapping("/register")
     public ModelAndView register(){
@@ -26,11 +26,11 @@ public class AuthController {
     @RequestMapping("/doRegister")
     @ResponseBody
     public String doRegister(AuthUser user){
-        AuthUser authUser = authUserService.getByUsername(user.getUsername());
+        AuthUser authUser = authUserServiceImpl.getByUsername(user.getUsername());
         if (authUser!=null){
             return JsonView.render(JsonView.ERROR_CODE);
         }else {
-            authUserService.createSelectivity(user);
+            authUserServiceImpl.createSelectivity(user);
             return JsonView.render(JsonView.SUCCESS_CODE);
         }
     }
