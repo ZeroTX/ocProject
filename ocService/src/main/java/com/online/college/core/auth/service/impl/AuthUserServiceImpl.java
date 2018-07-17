@@ -1,9 +1,11 @@
 package com.online.college.core.auth.service.impl;
 
 import com.online.college.common.page.TailPage;
+import com.online.college.common.storage.QiniuStorage;
 import com.online.college.core.auth.dao.AuthUserDao;
 import com.online.college.core.auth.domain.AuthUser;
 import com.online.college.core.auth.service.IAuthUserService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -60,8 +62,12 @@ public class AuthUserServiceImpl implements IAuthUserService {
      * 获取首页推荐5个讲师
      **/
     @Override
-    public List<AuthUser> queryRecomd() {
-        return authUserDao.queryRecommend();
+    public List<AuthUser> queryRecommend() {
+        List<AuthUser> users = authUserDao.queryRecommend();
+        if (CollectionUtils.isNotEmpty(users)){
+            users.forEach(user-> user.setHeader(QiniuStorage.getUrl(user.getHeader())));
+        }
+        return users;
     }
 
     /**

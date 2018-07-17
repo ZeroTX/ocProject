@@ -34,7 +34,7 @@ public interface IAuthUserService {
     /**
      *获取首页推荐5个讲师
      **/
-    public List<AuthUser> queryRecomd();
+    public List<AuthUser> queryRecommend();
 
     /**
      *分页获取
