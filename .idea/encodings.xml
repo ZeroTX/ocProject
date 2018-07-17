@@ -4,6 +4,7 @@
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ocCommon" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ocPortal" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ocPortal/src/main/webapp/static/list.html" charset="GBK" />
     <file url="file://$PROJECT_DIR$/ocRest" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/ocService" charset="UTF-8" />
   </component>

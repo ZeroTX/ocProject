@@ -4,6 +4,7 @@ import com.online.college.common.page.TailPage;
 import com.online.college.core.consts.dao.ConstsClassifyDao;
 import com.online.college.core.consts.domain.ConstsClassify;
 import com.online.college.core.consts.service.IConstsClassifyService;
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import java.util.List;
 public class ConstsClassifyServiceImpl implements IConstsClassifyService {
     @Resource
     private ConstsClassifyDao constsClassifyDao;
+
     /**
      * 根据id获取
      *
@@ -41,6 +43,12 @@ public class ConstsClassifyServiceImpl implements IConstsClassifyService {
      */
     @Override
     public ConstsClassify getByCode(String code) {
+        ConstsClassify classify = new ConstsClassify();
+        classify.setCode(code);
+        List<ConstsClassify> classifies = constsClassifyDao.queryByCondition(classify);
+        if (CollectionUtils.isNotEmpty(classifies)){
+            return classifies.get(0);
+        }
         return null;
     }
 
