@@ -19,4 +19,5 @@ public interface IPortalBusiness {
      * @param classifyVos
      */
     void prepareRecommendCourse(List<ConstsClassifyVo> classifyVos);
+
 }

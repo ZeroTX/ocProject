@@ -1,10 +1,12 @@
 package com.online.college.core.course.service;
 
 import com.online.college.common.page.TailPage;
+import com.online.college.common.storage.QiniuStorage;
 import com.online.college.core.course.CourseEnum;
 import com.online.college.core.course.dao.CourseDao;
 import com.online.college.core.course.domain.Course;
 import com.online.college.core.course.domain.CourseQueryDto;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -38,7 +40,13 @@ public class CourseServiceImpl implements ICourseService {
         if (queryEntity.getOnsale() == null) {
             queryEntity.setOnsale(CourseEnum.ONSALE.getValue());
         }
-        return courseDao.queryList(queryEntity);
+        List<Course> courses = courseDao.queryList(queryEntity);
+        courses.forEach(course -> {
+            if (StringUtils.isNotEmpty(course.getPicture())) {
+                course.setPicture(QiniuStorage.getUrl(course.getPicture()));
+            }
+        });
+        return courses;
     }
 
     /**
