@@ -5,6 +5,7 @@ import com.online.college.core.consts.dao.ConstsClassifyDao;
 import com.online.college.core.consts.domain.ConstsClassify;
 import com.online.college.core.consts.service.IConstsClassifyService;
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -43,6 +44,9 @@ public class ConstsClassifyServiceImpl implements IConstsClassifyService {
      */
     @Override
     public ConstsClassify getByCode(String code) {
+        if (StringUtils.isEmpty(code)){
+            return null;
+        }
         ConstsClassify classify = new ConstsClassify();
         classify.setCode(code);
         List<ConstsClassify> classifies = constsClassifyDao.queryByCondition(classify);

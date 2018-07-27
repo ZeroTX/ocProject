@@ -42,7 +42,7 @@
             <if test="code != null">
                 AND code = #{code}
             </if>
-            <if test="parent_code != null">
+            <if test="parentCode != null">
                 AND parent_code = #{parentCode}
             </if>
             ORDER BY parent_code , sort
