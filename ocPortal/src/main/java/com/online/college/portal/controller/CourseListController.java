@@ -3,10 +3,12 @@ package com.online.college.portal.controller;
 import com.online.college.common.page.TailPage;
 import com.online.college.core.consts.domain.ConstsClassify;
 import com.online.college.core.consts.service.IConstsClassifyService;
+import com.online.college.core.course.CourseEnum;
 import com.online.college.core.course.domain.Course;
 import com.online.college.core.course.service.ICourseService;
 import com.online.college.portal.business.IPortalBusiness;
 import com.online.college.portal.vo.ConstsClassifyVo;
+import org.aspectj.org.eclipse.jdt.core.IField;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +29,8 @@ public class CourseListController {
     private IConstsClassifyService constsClassifyService;
     @Autowired
     private IPortalBusiness portalBusiness;
+    @Autowired
+    private ICourseService courseService;
 
     @RequestMapping("/list")
     public ModelAndView list(String code, String sort, TailPage<Course> page) {
@@ -58,12 +62,32 @@ public class CourseListController {
                         .filter(c -> c.getCode().equals(curClassify.getCode()))
                         .collect(Collectors.toList());
                 curCode = curClassify.getCode();
-                mv.addObject("subClassifys",vos.get(0).getSubClassifyList());
+                mv.addObject("subClassifys", vos.get(0).getSubClassifyList());
             }
         }
-        mv.addObject("curCode",curCode);
-        mv.addObject("curSubCode",curSubCode);
+        mv.addObject("curCode", curCode);
+        mv.addObject("curSubCode", curSubCode);
 
+        Course course = new Course();
+        if (!"-1".equals(curCode)) {
+            course.setClassify(curCode);
+        }
+        if (!"-2".equals(curSubCode)) {
+            course.setSubClassify(curSubCode);
+        }
+
+        //排序
+        if ("pop".equals(sort)) {
+            page.descSortField("studyCount");
+        } else {
+            sort = "last";
+            page.descSortField("id");
+        }
+        mv.addObject("sort", sort);
+
+        course.setOnsale(CourseEnum.ONSALE.getValue());
+        page = courseService.queryPage(course, page);
+        mv.addObject("page", page);
         return mv;
     }
 }

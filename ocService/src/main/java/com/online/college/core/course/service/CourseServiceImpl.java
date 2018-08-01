@@ -6,6 +6,7 @@ import com.online.college.core.course.CourseEnum;
 import com.online.college.core.course.dao.CourseDao;
 import com.online.college.core.course.domain.Course;
 import com.online.college.core.course.domain.CourseQueryDto;
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -57,7 +58,18 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public TailPage<Course> queryPage(Course queryEntity, TailPage<Course> page) {
-        return null;
+        int count = courseDao.getTotalItemsCount(queryEntity);
+        List<Course> courses = courseDao.queryPage(queryEntity,page);
+        if (CollectionUtils.isNotEmpty(courses)){
+            courses.forEach(course -> {
+                if (null!=course&&StringUtils.isNotEmpty(course.getPicture())){
+                    course.setPicture(QiniuStorage.getUrl(course.getPicture()));
+                }
+            });
+        }
+        page.setItemsTotalCount(count);
+        page.setItems(courses);
+        return page;
     }
 
     /**
