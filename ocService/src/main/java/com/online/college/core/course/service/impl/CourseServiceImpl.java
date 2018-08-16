@@ -1,4 +1,4 @@
-package com.online.college.core.course.service;
+package com.online.college.core.course.service.impl;
 
 import com.online.college.common.page.TailPage;
 import com.online.college.common.storage.QiniuStorage;
@@ -6,6 +6,7 @@ import com.online.college.core.course.CourseEnum;
 import com.online.college.core.course.dao.CourseDao;
 import com.online.college.core.course.domain.Course;
 import com.online.college.core.course.domain.CourseQueryDto;
+import com.online.college.core.course.service.ICourseService;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
