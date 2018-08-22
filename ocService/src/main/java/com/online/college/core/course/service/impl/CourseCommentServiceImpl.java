@@ -24,7 +24,7 @@ public class CourseCommentServiceImpl implements ICourseCommentService {
      */
     @Override
     public CourseComment getById(Long id) {
-        return null;
+        return courseCommentDao.getById(id);
     }
 
     /**
@@ -35,7 +35,7 @@ public class CourseCommentServiceImpl implements ICourseCommentService {
      */
     @Override
     public List<CourseComment> queryAll(CourseComment courseComment) {
-        return null;
+        return courseCommentDao.queryAll(courseComment);
     }
 
     /**
@@ -61,7 +61,7 @@ public class CourseCommentServiceImpl implements ICourseCommentService {
      */
     @Override
     public void update(CourseComment courseComment) {
-
+        courseCommentDao.update(courseComment);
     }
 
     /**
@@ -71,7 +71,7 @@ public class CourseCommentServiceImpl implements ICourseCommentService {
      */
     @Override
     public void updateSelectivity(CourseComment entity) {
-
+        courseCommentDao.updateSelectivity(entity);
     }
 
     /**
@@ -81,7 +81,7 @@ public class CourseCommentServiceImpl implements ICourseCommentService {
      */
     @Override
     public void delete(CourseComment entity) {
-
+        courseCommentDao.delete(entity);
     }
 
     /**
@@ -91,6 +91,6 @@ public class CourseCommentServiceImpl implements ICourseCommentService {
      */
     @Override
     public void deleteLogic(CourseComment entity) {
-
+        courseCommentDao.deleteLogic(entity);
     }
 }

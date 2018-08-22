@@ -43,7 +43,7 @@ public class CourseController {
         //获取课程章节
         ModelAndView mv = new ModelAndView("learn");
         List<CourseSectionVo> chaptSection = courseBusiness.queryCourseSection(courseId);
-        mv.addObject("chaptSection",chaptSection);
+        mv.addObject("chaptSections",chaptSection);
         mv.addObject("course",course);
 
         //获取课程讲师

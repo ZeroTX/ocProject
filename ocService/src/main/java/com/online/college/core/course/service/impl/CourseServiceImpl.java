@@ -29,7 +29,7 @@ public class CourseServiceImpl implements ICourseService {
      */
     @Override
     public Course getById(Long id) {
-        return null;
+        return courseDao.getById(id);
     }
 
     /**
