@@ -46,6 +46,8 @@
 								<div class="meta">课程时长</div>
 								<div class="meta-value">${(course.time)!}</div>
 							</div>
+                            <a id="collectionSpan" onclick="doCollect(${(course.id)!})" href="javascript:void(0)" class="following" style="float: right;margin-top:5px;" >
+                            </a>
 						</div>
 						
 						<div class="course-brief">
@@ -102,11 +104,23 @@
 			<div class="main-course-right"  >
 				
 				<div class="lecturer-item" style="width: 100%;">
-					<img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
+				<#if courseTeacher.header?? && courseTeacher.header != ''>
+                    <img class="lecturer-uimg" src="${item.header!}">
+				<#else>
+                    <img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
+				</#if>
 					<span class="lecturer-name">${courseTeacher.realname!}</span>
 					<span class="lecturer-title">${courseTeacher.collegeName!} · ${courseTeacher.education!}</span>
 					<span class="lecturer-p" >${courseTeacher.title!}，${courseTeacher.sign!}</span>
-					<a href="javascript:void(0)" ><span class="follow-btn">关注+</span></a>
+                    <a href="javascript:void(0)"  onclick="doFollow('${(courseTeacher.id!)}');">
+					<span id="followSpan" class="follow-btn">
+					<#if followFlag?? && followFlag>
+                        已关注
+					<#else>
+                        关注+
+					</#if>
+					</span>
+                    </a>
 				</div>
 				
 				<h4 class="mt-50">推荐课程</h4>
@@ -139,6 +153,18 @@
 						$(this).find('.drop-down').html('▲');
 					}
 				});
+                //判断是否已经收藏
+                var courseId = ${(course.id)!}
+                if(courseId){
+                    var url = '${s.base}/collections/isCollection.html';
+                    doCollect(courseId,url);
+                }
+                //判断是否已经关注教师
+                var followId = ${(courseTeacher.id!)};
+                if(followId){
+                    var url = '${s.base}/follow/isFollow.html';
+                    doFollow(followId,url);
+                }
 			});
 
             /**
@@ -185,6 +211,46 @@
 
                     }
 				);
+            }
+            //收藏
+            function doCollect(courseId,url){
+                if(url == undefined){
+                    url = '${s.base}/collections/doCollection.html';
+                }
+                //处理收藏
+                $.ajax({
+                    url:url,
+                    type:'POST',
+                    dataType:'json',
+                    data:{"courseId":courseId},
+                    success:function(resp){
+                        if(resp.errcode == 1){//已收藏
+                            $('#collectionSpan').attr('class','followed');
+                        }else if(resp.errcode == 0){//未收藏
+                            $('#collectionSpan').attr('class','following');
+                        }
+                    }
+                });
+            }
+
+            //关注
+            function doFollow(followId,url){
+                if(url == undefined){
+                    url = '${s.base}/follow/doFollow.html';
+                }
+                $.ajax({
+                    url:url,
+                    type:'POST',
+                    dataType:'json',
+                    data:{"followId":followId},
+                    success:function(resp){
+                        if(resp.errcode == 1){
+                            $('#followSpan').html('已关注');
+                        }else if(resp.errcode == 0){
+                            $('#followSpan').html('+关注');
+                        }
+                    }
+                });
             }
 		</script>
 		

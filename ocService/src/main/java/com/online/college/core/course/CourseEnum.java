@@ -9,8 +9,9 @@ public enum CourseEnum {
     FREE_NOT(0),//付费
 
     ONSALE(1),//上架
-    ONSALE_NOT(0);//下架
+    ONSALE_NOT(0),//下架
 
+    COLLECTION_CLASSIFY_COURSE(1);//课程收藏
     private Integer value;
 
     CourseEnum(Integer value) {
