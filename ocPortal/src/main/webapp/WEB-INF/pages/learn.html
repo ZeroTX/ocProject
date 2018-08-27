@@ -105,7 +105,7 @@
 				
 				<div class="lecturer-item" style="width: 100%;">
 				<#if courseTeacher.header?? && courseTeacher.header != ''>
-                    <img class="lecturer-uimg" src="${item.header!}">
+                    <img class="lecturer-uimg" src="${courseTeacher.header!}">
 				<#else>
                     <img class="lecturer-uimg" src="${s.base}/res/i/header.jpg">
 				</#if>
@@ -224,9 +224,9 @@
                     dataType:'json',
                     data:{"courseId":courseId},
                     success:function(resp){
-                        if(resp.errcode == 1){//已收藏
+                        if(resp.code == 1){//已收藏
                             $('#collectionSpan').attr('class','followed');
-                        }else if(resp.errcode == 0){//未收藏
+                        }else if(resp.code == 0){//未收藏
                             $('#collectionSpan').attr('class','following');
                         }
                     }
@@ -244,9 +244,9 @@
                     dataType:'json',
                     data:{"followId":followId},
                     success:function(resp){
-                        if(resp.errcode == 1){
+                        if(resp.code == 1){
                             $('#followSpan').html('已关注');
-                        }else if(resp.errcode == 0){
+                        }else if(resp.code == 0){
                             $('#followSpan').html('+关注');
                         }
                     }

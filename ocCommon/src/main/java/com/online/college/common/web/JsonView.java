@@ -81,4 +81,8 @@ public class JsonView {
     public void setData(Object data) {
         this.data = data;
     }
+
+    public String toString(){
+        return JSONObject.fromObject(this).toString();
+    }
 }
