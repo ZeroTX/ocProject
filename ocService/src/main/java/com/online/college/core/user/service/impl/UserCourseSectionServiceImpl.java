@@ -26,6 +26,16 @@ public class UserCourseSectionServiceImpl implements IUserCourseSectionService{
 		return entityDao.queryAll(queryEntity);
 	}
 
+	/**
+	 * 获取最新的
+	 *
+	 * @param queryEntity
+	 */
+	@Override
+	public UserCourseSection queryLatest(UserCourseSection queryEntity) {
+		return entityDao.queryLatest(queryEntity);
+	}
+
 	public TailPage<UserCourseSectionDto> queryPage(UserCourseSection queryEntity , TailPage<UserCourseSectionDto> page){
 		Integer itemsTotalCount = entityDao.getTotalItemsCount(queryEntity);
 		List<UserCourseSectionDto> items = entityDao.queryPage(queryEntity,page);
@@ -54,6 +64,15 @@ public class UserCourseSectionServiceImpl implements IUserCourseSectionService{
 		entityDao.deleteLogic(entity);
 	}
 
+	/**
+	 * 创建
+	 *
+	 * @param entity
+	 */
+	@Override
+	public void createSelectivity(UserCourseSection entity) {
+		entityDao.createSelectivity(entity);
+	}
 
 
 }

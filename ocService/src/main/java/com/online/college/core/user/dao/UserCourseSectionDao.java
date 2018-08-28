@@ -15,12 +15,17 @@ public interface UserCourseSectionDao {
 	public UserCourseSection getById(Long id);
 
 	/**
-	*获取�?�?
+	*获取�?�?
 	**/
 	public List<UserCourseSection> queryAll(UserCourseSection queryEntity);
 
 	/**
-	*获取总数�?
+	 * 获取最新的学习记录
+	 */
+	public UserCourseSection queryLatest(UserCourseSection queryEntity);
+
+	/**
+	*获取总数�?
 	**/
 	public Integer getTotalItemsCount(UserCourseSection queryEntity);
 
@@ -30,7 +35,7 @@ public interface UserCourseSectionDao {
 	public List<UserCourseSectionDto> queryPage(UserCourseSection queryEntity, TailPage<UserCourseSectionDto> page);
 
 	/**
-	*创建新记�?
+	*创建新记�?
 	**/
 	public void create(UserCourseSection entity);
 
@@ -40,7 +45,7 @@ public interface UserCourseSectionDao {
 	public void update(UserCourseSection entity);
 
 	/**
-	*根据id选择性更新自�?
+	*根据id选择性更新自�?
 	**/
 	public void updateSelectivity(UserCourseSection entity);
 
@@ -54,6 +59,10 @@ public interface UserCourseSectionDao {
 	**/
 	public void deleteLogic(UserCourseSection entity);
 
+	/**
+	 *创建新记录
+	 **/
+	public void createSelectivity(UserCourseSection entity);
 
 
 }

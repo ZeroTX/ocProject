@@ -14,9 +14,13 @@ public interface IUserCourseSectionService {
 	public UserCourseSection getById(Long id);
 
 	/**
-	*获取�?�?
+	*获取�?�?
 	**/
 	public List<UserCourseSection> queryAll(UserCourseSection queryEntity);
+	/**
+	 * 获取最新的
+	 */
+	public UserCourseSection queryLatest(UserCourseSection queryEntity);
 
 	/**
 	*分页获取
@@ -34,7 +38,7 @@ public interface IUserCourseSectionService {
 	public void update(UserCourseSection entity);
 
 	/**
-	*根据id 进行可�?��?�更�?
+	*根据id 进行可�?��?�更�?
 	**/
 	public void updateSelectivity(UserCourseSection entity);
 
@@ -48,7 +52,10 @@ public interface IUserCourseSectionService {
 	**/
 	public void deleteLogic(UserCourseSection entity);
 
-
+	/**
+	 *创建
+	 **/
+	public void createSelectivity(UserCourseSection entity);
 
 }
 

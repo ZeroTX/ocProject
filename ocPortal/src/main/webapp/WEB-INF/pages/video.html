@@ -6,7 +6,7 @@
 	    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
 		<meta name="keywords" content="">
 		<meta name="description" content="">
-		<title>网校在线学习平台</title>
+		<title>在线网校学习平台</title>
 		<#include "./common/res.html">
 	</head>
 
@@ -21,19 +21,43 @@
 							<video src="${s.base}/res/demo.mp4" width="100%" height="100%" controls preload></video>
 						</div>
 						
-						<div  id="page-anchor" name="page-anchor" class="course-menu">
-							<a  href="javascript:void(0)" onclick="_queryPage(1,0);"><span id="comment_btn" class="menu-item  cur">评论</span></a>
-							<a  href="javascript:void(0)" onclick="_queryPage(1,1);"><span id="qa_btn" class="menu-item">问答</span></a>
+						<div  class="course-menu">
+							<a  href="javascript:void(0)" >
+							<span onclick="showTab(this,0);" class="menu-item  cur">评论</span>
+							</a>
+							<a  href="javascript:void(0)" >
+							<span onclick="showTab(this,1);" class="menu-item">问答</span>
+							</a>
 						</div>
 				</div>
 				
 				<!-- 评论区 start -->
-				<div id="comment_qa">
+				<div id="commentQA">
 				</div>
 				<!-- 评论区 end -->
+				
+				<div style="margin-top: 20px;">
+					<div>
+						<span id="commentTitle">发布评论：</span>
+						<span id="commentTip" style="margin-left: 10px;color:#777;">长度小于200</span>
+					</div>
+					<form id="commentForm" action="${s.base}/courseComment/doComment.html" method="post"  style="margin: 5px 0px;">
+						<input type="hidden" id="commentType" name="type" value="0"/>
+						<input type="hidden" name="sectionId" value="${(courseSection.id)!}"/>
+						<input type="hidden" name="courseId" value="${(courseSection.courseId)!}"/>
+						
+						<textarea id="content" name="content" rows="" cols="100"></textarea>
+						<div>
+							<input id="indeityCode" name="indeityCode"  type="text" placeholder="请输入验证码">
+							<img  onclick="reloadIndityImg();" id="indeityImg"  src="${s.base}/tools/identiry/code.html" style="width:80px;height:26px;margin-left:10px;margin-top:-3px;"/>
+						</div>
+					</form>
+					<input type="button" value="发布" class="btn" onclick="doComment();">
+				</div>
+				
 			</div>
 			
-			
+			<!-- 章节-start -->
 			<div class="main-course-right"  >
 				<h4 class="mt-50">所有章节</h4>
 				<div class="video-course-fix-parent">
@@ -63,6 +87,7 @@
 				</div>
 				
 			</div>
+			<!-- 章节-end -->
 		</div>
 		
 		<#include "./common/footer.html">
@@ -91,6 +116,21 @@
 			});	
 			
 			/**
+			*展示tab commentQA
+			**/
+			function showTab(el,type){
+				$('.course-menu').find('span').each(function(i,item){
+					$(item).removeClass('cur');
+				});
+				$(el).addClass('cur');
+				
+				_queryPage(1,type);//默认加载 第 1 页
+				//设置评论类型
+				$('#commentType').val(type);
+			}
+			
+			/**
+			*加载 课程评论 & 问答 
 			* courseId：课程id
 			* sectionId: 章节id
 			* type : 类型 0-评论；1-答疑 
@@ -101,28 +141,66 @@
 					type = _type;
 				else
 					_type = type;
-				
-				if(type == 0){//评论按钮 
-					$('#comment_btn').addClass('cur');
-					$('#qa_btn').removeClass('cur');
-				}else{
-					$('#qa_btn').addClass('cur');
-					$('#comment_btn').removeClass('cur');
-				}
 				//加载评论或者QA
 				if(pageNum == undefined)
 					pageNum = 1;
-				
 				var courseId = ${(courseSection.courseId)!};//课程id
-				var sectionId = ${(courseSection.id)!};//章节id
-				
-				var url = '${s.base}/course/comment/segment.html';
-				$("#comment_qa").load(
+				var sectionId = ${(courseSection.id)!};//章节id  
+				var url = '${s.base}/courseComment/segment.html';
+				$("#commentQA").load(
 							url,
-							{'courseId':courseId,'sectionId':sectionId,'type':type,'pageNum':pageNum},
-							function(){ }
+							{
+								'courseId':courseId,
+								'sectionId':sectionId,
+								'type':type,
+								'pageNum':pageNum
+							},
+							function(){}
 						);
-				$(document).scrollTop(600);
+			};
+			
+			// -----评论 
+			//重新获取验证码
+			function reloadIndityImg(){
+				document.getElementById("indeityImg").src = CONETXT_PATH + "/tools/identiry/code.html?ticket=" + Math.random();
+			}
+			//提交
+			function doComment(){
+				var indeityCode = $('#indeityCode').val();
+				if($.trim(indeityCode).length ==0 ){
+					$('#commentTip').css('color','red').html('验证码输入有误');
+					return;
+				}
+				
+				var content = $('#content').val();
+				if($.trim(content).length > 200 || $.trim(content).length == 0){
+					$('#commentTip').css('color','red').html('评论内容长度请 &gt; 0 , &lt; 200');
+					return;
+				}
+				
+				$('#commentForm').ajaxSubmit({
+					datatype : 'json',
+					success : function(resp) {
+						var resp = $.parseJSON(resp);
+						if (resp.errcode == 1) {
+							$('#commentTip').css('color','green').html('评论成功');
+							//自动刷新
+							
+						} else if(resp.errcode == 0) {
+							$('#commentTip').css('color','red').html('评论失败');
+						}else if(resp.errcode == 2) {
+							$('#commentTip').css('color','red').html('验证码输入有误');
+						}else if(resp.errcode == 3) {
+							$('#commentTip').css('color','red').html('评论内容长度请 &gt; 0 , &lt; 200');
+						}
+						
+						reloadIndityImg();
+						$('#indeityCode').val('');
+						$('#content').val('');
+					},
+					error : function(xhr) {
+					}
+				});
 			}
 		</script>
 		
