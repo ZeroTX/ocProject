@@ -55,6 +55,26 @@ public class CourseCommentServiceImpl implements ICourseCommentService {
     }
 
     /**
+     * 创建
+     *
+     * @param entity
+     */
+    @Override
+    public void create(CourseComment entity) {
+        courseCommentDao.create(entity);
+    }
+
+    /**
+     * 创建
+     *
+     * @param entity
+     */
+    @Override
+    public void createSelectivity(CourseComment entity) {
+        courseCommentDao.createSelectivity(entity);
+    }
+
+    /**
      * 根据id更新
      *
      * @param courseComment

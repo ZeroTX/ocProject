@@ -32,6 +32,10 @@ public interface CourseCommentDao {
 	*创建新记录
 	**/
 	public void create(CourseComment entity);
+	/**
+	 * 创建新记录
+	 */
+	public void createSelectivity(CourseComment entity);
 
 	/**
 	*根据id更新

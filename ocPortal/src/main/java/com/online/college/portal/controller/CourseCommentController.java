@@ -2,13 +2,21 @@ package com.online.college.portal.controller;
 
 import com.online.college.common.page.TailPage;
 import com.online.college.common.storage.QiniuStorage;
+import com.online.college.common.web.JsonView;
+import com.online.college.common.web.SessionContext;
 import com.online.college.core.course.domain.CourseComment;
+import com.online.college.core.course.domain.CourseSection;
 import com.online.college.core.course.service.ICourseCommentService;
+import com.online.college.core.course.service.ICourseSectionService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 
 /**
  * 课程评论管理
@@ -18,6 +26,8 @@ import org.springframework.web.servlet.ModelAndView;
 public class CourseCommentController {
     @Autowired
     private ICourseCommentService courseCommentService;
+    @Autowired
+    private ICourseSectionService courseSectionService;
 
     @RequestMapping("/segment")
     public ModelAndView segment(CourseComment queryEntity, TailPage<CourseComment> page){
@@ -37,5 +47,42 @@ public class CourseCommentController {
 
         mv.addObject("page",commentTailPage);
         return mv;
+    }
+
+    /**
+     * 发表评论
+     * @param entity
+     * @return
+     */
+    @RequestMapping(value = "/doComment")
+    @ResponseBody
+    public String doComment(HttpServletRequest request, CourseComment entity, String indeityCode){
+
+        //验证码判断
+        if(null == indeityCode ||
+                (indeityCode != null && !indeityCode.equalsIgnoreCase(SessionContext.getIdentifyCode(request)))){
+            return new JsonView(2).toString();//验证码错误
+        }
+
+        //文字太长
+        if(entity.getContent().trim().length() > 200 || entity.getContent().trim().length() == 0){
+            return new JsonView(3).toString();//文字太长或者为空
+        }
+
+        CourseSection courseSection = courseSectionService.getById(entity.getSectionId());
+        if(null != courseSection){
+            entity.setSectionTitle(courseSection.getName());
+            entity.setToUsername(entity.getCreateUser());//toUsername可以作为页面入参
+            entity.setUsername(SessionContext.getUsername());
+            entity.setCreateTime(new Date());
+            entity.setCreateUser(SessionContext.getUsername());
+            entity.setUpdateTime(new Date());
+            entity.setUpdateUser(SessionContext.getUsername());
+
+            this.courseCommentService.createSelectivity(entity);
+            return new JsonView(1).toString();
+        }else{
+            return new JsonView(0).toString();
+        }
     }
 }
