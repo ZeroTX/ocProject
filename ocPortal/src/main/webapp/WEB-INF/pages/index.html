@@ -51,7 +51,7 @@
                         <#list classifys as item>
                             <#if item_index lt 6>
                                 <div class="category" c-id="classify_${item.id!}">
-                                    <a><div class="group">${item.name!} </div></a>
+                                    <a href="${s.base}/course/list.html?code=${item.code!}"><div class="group">${item.name!} </div></a>
                                 </div>
                             </#if>
                         </#list>
@@ -67,7 +67,7 @@
                                     <div class="submenu-title clearfix">分类目录</div>
                                     <#if item.subClassifyList??>
                                         <#list item.subClassifyList as subItem>
-                                            <a class="submenu-item" href="#">${subItem.name!}</a>
+                                            <a class="submenu-item" href="${s.base}/course/list.html?code=${subItem.code!}">${subItem.name!}</a>
                                             <#if subItem_index lt (item.subClassifyList?size - 1)>
                                                 <a class="submenu-item">/</a>
                                             </#if>
@@ -80,7 +80,7 @@
                                     <div>
                                         <#if item.recommendCourseList?? && item.recommendCourseList?size gt 0 >
                                             <#list item.recommendCourseList as item>
-                                                <a href="" class="mt-10" title="${item.name!}"><li class="ellipsis oc-color-hover">➤ ${item.name!}</li></a>
+                                                <a href="${s.base}/course/learn/${item.id}.html" class="mt-10" title="${item.name!}"><li class="ellipsis oc-color-hover">➤ ${item.name!}</li></a>
                                             </#list>
                                         </#if>
                                     </div>
@@ -103,7 +103,7 @@
                 <#if actualCourses?? && actualCourses?size gt 0>
                     <#list actualCourses as item>
                         <#assign n =item_index +1 />
-                        <a href="">
+                        <a href="${s.base}/course/learn/${item.id}.html">
                             <div class="course-card-container" <#if n %5 == 0>style="margin-right:0px"</#if> >
                             <#if item.picture?? && item.picture != ''>
                                 <div class="course-card-top" style="background-image: url('${item.picture!}')">
@@ -145,7 +145,7 @@
                 <#if freeCourses?? && freeCourses?size gt 0>
                     <#list freeCourses as item>
                     <#assign n = item_index + 1 />
-                        <a href="">
+                        <a href="${s.base}/course/learn/${item.id}.html">
                             <div class="course-card-container" <#if n %5 ==0>style="margin-right:0px;"</#if> >
                             <#if item.picture?? && item.picture != ''>
                                 <div class="course-card-top" style="background-image: url('${item.picture!}')">
@@ -193,7 +193,7 @@
             <h3 class="types-title">Java开发工程师</h3>
             <#if javaCourses?? && javaCourses?size gt 0>
                 <#assign javaC0 = javaCourses[0] />
-                <a href="">
+                <a href="${s.base}/course/learn/${javaC0.id}.html">
                     <div class="types-content-left "
                          style="background-image: url(http://img.mukewang.com/58ac18fd00012a4202240348.jpg);">
                         <div class="course-card-container-fix">
@@ -213,12 +213,12 @@
                 <#assign javaC2 = javaCourses[2] />
                 <div class="types-content-right ">
                     <div class="types-content-banner ">
-                        <a target="_blank" href="http://coding.imooc.com/class/81.html" title="${javaC1.name!}">
+                        <a target="_blank" href="${s.base}/course/learn/${javaC1.id}.html" title="${javaC1.name!}">
                             <div class="types-content-banner-block green-bg"  style="margin-right:20px;" >
                                 ${javaC1.name!}
                             </div>
                         </a>
-                        <a target="_blank" href="http://coding.imooc.com/class/76.html" title="${javaC2.name!}">
+                        <a target="_blank" href="${s.base}/course/learn/${javaC2.id}.html" title="${javaC2.name!}">
                             <div class="types-content-banner-block gray-bg"  >
                                 ${javaC2.name!}
                             </div>
@@ -228,7 +228,7 @@
                     <div class="clearfix">
                         <#list javaCourses as item>
                             <#if item_index gt 2>
-                                <a href="">
+                                <a href="${s.base}/course/learn/${item.id}.html">
                                     <div class="course-card-container" <#if item_index == 6>style="margin-right:0px"</#if> >
                                         <div class="course-card-top green-bg" >
                                             <span>${item.subClassifyName!}</span>

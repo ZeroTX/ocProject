@@ -1,6 +1,7 @@
 package com.online.college.portal.controller;
 
 import com.online.college.common.storage.QiniuStorage;
+import com.online.college.common.web.SessionContext;
 import com.online.college.core.auth.domain.AuthUser;
 import com.online.college.core.auth.service.IAuthUserService;
 import com.online.college.core.course.domain.Course;
@@ -70,11 +71,20 @@ public class CourseController {
         List<Course> recomdCourseList = courseService.queryList(queryEntity);
         mv.addObject("recomdCourseList",recomdCourseList);
 
+        //当前学习的章节
+        UserCourseSection userCourseSection = new UserCourseSection();
+        userCourseSection.setCourseId(course.getId());
+        userCourseSection.setUserId(SessionContext.getUserId());
+        userCourseSection = this.userCourseSectionService.queryLatest(userCourseSection);
+        if (null != userCourseSection){
+            CourseSection courseSection = courseSectionService.getById(userCourseSection.getSectionId());
+            mv.addObject("curCourseSection",courseSection);
+        }
         return mv;
     }
 
     @RequestMapping("/video/{sectionId}")
-    public ModelAndView video(@PathVariable Long sectionId){
+    public ModelAndView getVideo(@PathVariable Long sectionId){
         if (null == sectionId){
             return new ModelAndView("error/404");
         }
@@ -109,4 +119,5 @@ public class CourseController {
         }
         return mv;
     }
+
 }

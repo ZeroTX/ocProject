@@ -1,5 +1,9 @@
 package com.online.college.common.web;
 
+import com.online.college.common.web.auth.SessionUser;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -13,6 +17,30 @@ public class SessionContext {
 
     public static String getUsername(){
         return "";
+    }
+
+    public static Long getUserId(){
+        return 1L;
+    }
+
+    /**
+     * 判断用户是否登录
+     * @return
+     */
+    public static boolean isLogin(){
+        Subject subject = SecurityUtils.getSubject();
+        if (null!=subject && null != subject.getPrincipal()){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 获取当前登录用户
+     * @return
+     */
+    public static SessionUser getAuthUser(){
+        return (SessionUser) SecurityUtils.getSubject().getPrincipal();
     }
     /**
      * 获取验证码
