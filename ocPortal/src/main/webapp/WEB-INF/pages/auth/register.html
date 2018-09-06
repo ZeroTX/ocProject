@@ -11,7 +11,7 @@
 		</head>
 
 <body>
-<#include "../common/header.html">
+<#include "../common/header2.html">
 	<div class="f-main">
 		<div class="types-block clearfix" style="text-align: center;">
 			<h3 class="types-title">注册</h3>
@@ -22,6 +22,10 @@
 				<li><label>密码</label>
 					<input maxlength="12" id="password" name="password" type="password" class="input-text" placeholder="请输入密码" autocomplete="off" />
 				</li>
+                <li><label>验证码</label>
+                    <input id="identiryCode" name="identityCode" maxlength="6" class="input-text" type="text" style="width: 150px;" placeholder="请输入验证码"/>
+                    <a class="vali-base"><img  onclick="reloadIndityImg('indeityImgRegister');" id="indeityImgRegister"  src="${s.base}/tools/identity/code.html" style="width:80px;height:40px;float:left;margin-left:10px;"/></a>
+                </li>
 				<li id="errorMsg" class="clearfix" style="display: none;color:red;">用户名密码不能为空</li>
 				<li class="clearfix" style="margin-top: 30px;">
 					<input type="button" value="注册保存" class="btn" onclick="doSubmit();">

@@ -1,13 +1,15 @@
 package com.online.college.core.auth.domain;
 
 import com.online.college.common.orm.BaseEntity;
+import com.online.college.common.web.auth.SessionUser;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by tx on 2018/7/6.
  */
-public class AuthUser extends BaseEntity {
+public class AuthUser extends BaseEntity implements SessionUser{
     private static final long serialVersionUID = 94044276250229411L;
 
     /**
@@ -140,6 +142,16 @@ public class AuthUser extends BaseEntity {
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public Long getUserId() {
+        return this.getId();
+    }
+
+    @Override
+    public Set<String> getPermissions() {
+        return null;
     }
 
     public void setUsername(String username) {
