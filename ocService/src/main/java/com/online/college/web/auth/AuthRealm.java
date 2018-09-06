@@ -24,6 +24,7 @@ public class AuthRealm extends AuthorizingRealm {
     @Autowired
     private IAuthUserService authUserService;
 
+    //用于授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         if (principalCollection == null){
@@ -37,7 +38,7 @@ public class AuthRealm extends AuthorizingRealm {
         info.setStringPermissions(sessionUser.getPermissions());
         return info;
     }
-
+    //用于认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authToken) throws AuthenticationException {
         UsernamePasswordToken token = (UsernamePasswordToken) authToken;
