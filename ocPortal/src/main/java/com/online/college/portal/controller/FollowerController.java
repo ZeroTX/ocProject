@@ -1,6 +1,8 @@
 package com.online.college.portal.controller;
 
 import com.online.college.common.web.JsonView;
+import com.online.college.common.web.SessionContext;
+import com.online.college.common.web.auth.SessionUser;
 import com.online.college.core.user.domain.UserFollows;
 import com.online.college.core.user.service.IUserFollowsService;
 import org.apache.commons.collections.CollectionUtils;
@@ -25,7 +27,7 @@ public class FollowerController {
     @ResponseBody
     public String doFollow(Long followId){
         //获取当前用户
-        Long curUserId = 1L;
+        Long curUserId = SessionContext.getUserId();
 
         UserFollows userFollows = new UserFollows();
         userFollows.setUserId(curUserId);
@@ -47,7 +49,7 @@ public class FollowerController {
     @ResponseBody
     public String isFollow(Long followId){
         //获取当前用户
-        Long curUserId = 1L;
+        Long curUserId = SessionContext.getUserId();
         UserFollows userFollows = new UserFollows();
 
         userFollows.setUserId(curUserId);

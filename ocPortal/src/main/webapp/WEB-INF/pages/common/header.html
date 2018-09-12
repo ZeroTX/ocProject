@@ -63,7 +63,7 @@
             </div>
 
             <div class="modal-body">
-                <form id="loginForm" class="form-horizontal" style="padding: 0px 20px;" method="POST" action="${s.base}/auth/ajaxlogin.html">
+                <form id="loginForm" class="form-horizontal" style="padding: 0px 20px;" method="POST" action="${s.base}/auth/ajaxLogin.html">
                     <div class="form-group">
                         <input id="usernameHeader1"  type="text" class="form-control"  name="username" placeholder="用户名">
                     </div>
@@ -71,8 +71,8 @@
                         <input id="passwordHeader1"  type="password" class="form-control"  name="password"  placeholder="密　码">
                     </div>
                     <div class="form-group">
-                        <input id="identiryCodeHeader1" class="form-control"  name="identiryCode" maxlength="6" class="input-text" type="text" style="width: 120px;float:left;" placeholder="请输入验证码"/>
-                        <img  id="indeityImgHead1"  onclick="reloadIndityImg('indeityImgHead1');" src="${s.base}/tools/identiry/code.html" style="width:80px;height:33px;float:left;margin-left:10px;float:left;border-radius:5px;"/>
+                        <input id="identiryCodeHeader1" class="form-control"  name="identityCode" maxlength="6" class="input-text" type="text" style="width: 120px;float:left;" placeholder="请输入验证码"/>
+                        <img  id="indeityImgHead1"  onclick="reloadIndityImg('indeityImgHead1');" src="${s.base}/tools/identity/code.html" style="width:80px;height:33px;float:left;margin-left:10px;float:left;border-radius:5px;"/>
                         <span id="loginError" style="margin-left:10px;height:33px;line-height:33px;color:red;display:none;">错误信息</span>
                     </div>
                     <div class="form-group">
@@ -95,7 +95,7 @@
                     </div>
                     <div class="form-group">
                         <input id="identiryCodeHeader2" class="form-control"  name="identiryCode" maxlength="6" class="input-text" type="text" style="width: 120px;float:left;" placeholder="请输入验证码"/>
-                        <img  onclick="reloadIndityImg('indeityImgHead2');" id="indeityImgHead2"  src="${s.base}/tools/identiry/code.html" style="width:80px;height:33px;float:left;margin-left:10px;float:left;border-radius:5px;"/>
+                        <img  onclick="reloadIndityImg('indeityImgHead2');" id="indeityImgHead2"  src="${s.base}/tools/identity/code.html" style="width:80px;height:33px;float:left;margin-left:10px;float:left;border-radius:5px;"/>
                         <span id="registerError" style="margin-left:10px;height:33px;line-height:33px;color:red;display:none;">错误信息</span>
                     </div>
                     <a href="javascript:void(0)">

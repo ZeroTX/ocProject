@@ -26,8 +26,8 @@ $(function () {
     $.ajaxSetup({
         type:"POST",
         complete:function (xhr,status) {
-            if (xhr.responseJSON.code = 1001){
-                window.location.href = CONETXT_PATH+"auth/login.html"
+            if (xhr.responseJSON.code == 1001){
+                window.location.href = CONETXT_PATH+"/auth/login.html"
             }
         }
     })

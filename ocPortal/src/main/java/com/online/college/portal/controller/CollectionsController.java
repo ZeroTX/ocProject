@@ -1,6 +1,7 @@
 package com.online.college.portal.controller;
 
 import com.online.college.common.web.JsonView;
+import com.online.college.common.web.SessionContext;
 import com.online.college.core.course.CourseEnum;
 import com.online.college.core.user.domain.UserCollections;
 import com.online.college.core.user.service.IUserCollectionsService;
@@ -25,7 +26,7 @@ public class CollectionsController {
     @ResponseBody
     public String doCollection(Long courseId){
         //获取当前用户
-        Long curUserId = 1L;
+        Long curUserId = SessionContext.getUserId();
         UserCollections userCollections = new UserCollections();
 
         userCollections.setUserId(curUserId);
@@ -51,7 +52,7 @@ public class CollectionsController {
     @ResponseBody
     public String isCollection(Long courseId){
         //获取当前用户
-        Long curUserId = 1L;
+        Long curUserId = SessionContext.getUserId();
         UserCollections userCollections = new UserCollections();
 
         userCollections.setUserId(curUserId);

@@ -53,7 +53,7 @@
                 /auth/** = anon
                 /auth/logout.html = logout
 
-                course/list.html* = anon
+                /course/list.html = anon
                 /course/learn/*.html = anon
                 /course/video/*.html = authc
 

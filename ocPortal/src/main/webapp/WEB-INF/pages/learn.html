@@ -22,7 +22,7 @@
 							
 							<div class="static-item"  >
 								<div class="meta">上次学到</div>
-								<div class="meta-value" title="${curCourseSection.name!}">${curCourseSection.name!}</div>
+								<div class="meta-value" title="${(curCourseSection.name)!}">${(curCourseSection.name)!}</div>
 							</div>
 							<div class="static-item"  >
 								<div class="meta">学习人数</div>
@@ -153,18 +153,21 @@
 						$(this).find('.drop-down').html('▲');
 					}
 				});
-                //判断是否已经收藏
-                var courseId = ${(course.id)!}
-                if(courseId){
-                    var url = '${s.base}/collections/isCollection.html';
-                    doCollect(courseId,url);
-                }
-                //判断是否已经关注教师
-                var followId = ${(courseTeacher.id!)};
-                if(followId){
-                    var url = '${s.base}/follow/isFollow.html';
-                    doFollow(followId,url);
-                }
+				<@shiro.user>
+                    //判断是否已经收藏
+                    var courseId = ${(course.id)!}
+                    if(courseId){
+                        var url = '${s.base}/collections/isCollection.html';
+                        doCollect(courseId,url);
+                    }
+                    //判断是否已经关注教师
+                    var followId = ${(courseTeacher.id!)};
+                    if(followId){
+                        var url = '${s.base}/follow/isFollow.html';
+                        doFollow(followId,url);
+                    }
+				</@shiro.user>
+
 			});
 
             /**

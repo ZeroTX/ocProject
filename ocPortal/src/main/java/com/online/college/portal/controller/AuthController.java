@@ -58,7 +58,7 @@ public class AuthController {
         if (authUser != null) {
             return JsonView.render(JsonView.ERROR_CODE);
         } else {
-            authUser.setPassword(EncryptUtil.encodedByMD5(authUser.getPassword()));
+            user.setPassword(EncryptUtil.encodedByMD5(user.getPassword()));
             authUserServiceImpl.createSelectivity(user);
             return JsonView.render(JsonView.SUCCESS_CODE);
         }
